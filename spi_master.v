@@ -1,15 +1,13 @@
- module spi_master(clk,rst,cs,din,newd,mosi,miso,sclk,data_reg);
+module spi_master(clk,rst,cs,din,newd,mosi,sclk);
 
 input clk;
 input rst;
 input [11:0]din;
 input newd;
-input miso;
 output reg mosi;
 output reg cs;
 output sclk;
-output [11:0]data_reg;
-
+ 
 reg[1:0]countc;
 reg [1:0]state;
 reg [3:0]data_count;
@@ -76,51 +74,9 @@ assign sclk=countc[0];
         endcase
     end
       
-end
-
-/*always @(negedge sclk or posedge rst) begin
-    if(rst) begin
-        state<=idle;
-         
-        cs<=1'b1;
-        data_count<=4'b1;
-      	mosi<=1'b0;
-    end
-    else begin
-        case (state)
-
-           idle : begin
-                if(newd && (din==0) ) begin
-                    state<=recieve;
-                    cs<=1'b0;
-                  	data_reg[11]<=miso;
-                end
-
-                else begin
-                state<=idle;
-                end
-           end
-
-            recieve : begin  
-                if(data_count==4'd12) begin
-                    state<=idle;
-                    data_count<=4'b1;
-                    cs<=1'b1;
-                end
-                else begin
-                 data_reg[11-data_count]<=miso;
-                 data_count<=data_count+1'b1;
-                end
-           end
-
-           default: state<=idle;
-             
-        endcase
-    end
-      
-end*/
-
-
+end 
+   
+endmodule
 
 endmodule
 
