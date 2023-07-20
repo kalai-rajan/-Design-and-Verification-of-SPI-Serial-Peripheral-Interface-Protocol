@@ -78,8 +78,6 @@ end
    
 endmodule
 
-endmodule
-
 module spi_master_tb;
   wire sclk;
   reg rst;
